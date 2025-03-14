@@ -1,8 +1,5 @@
-/*
-ID: neealdo1
-PROB: sprime
-LANG: JAVA
- */
+
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.util.*;
 
@@ -12,7 +9,7 @@ public class sprime  {
   public static void main(String[] args) throws IOException {
     BufferedReader scanner = new BufferedReader(new FileReader("sprime.in"));
     FileWriter writer = new FileWriter("sprime.out");
-    int n = Integer.parseInt(scanner.readLine());
+    int n = Integer.parseInt(BoundedLineReader.readLine(scanner, 5_000_000));
     superprimes = new ArrayList<>();
 
     // Start with single-digit primes
