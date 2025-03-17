@@ -3,6 +3,7 @@ USER: neealdo1
 TASK: hamming
 LANG: JAVA
 */
+
 import java.io.*;
 import java.util.*;
 
