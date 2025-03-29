@@ -5,6 +5,7 @@ LANG: JAVA
 */
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 public class hamming {
@@ -58,9 +59,7 @@ public class hamming {
         Collections.sort(selectedCodewords);
 
         // Output the results to file
-        BufferedWriter writer = new BufferedWriter(
-            new FileWriter("hamming.out")
-        );
+        BufferedWriter writer = Files.newBufferedWriter("hamming.out".toPath());
         for (int i = 0; i < selectedCodewords.size(); i += 10) {
             // Determine the end index for this line (max 10 codewords per line)
             int end = Math.min(i + 10, selectedCodewords.size());
