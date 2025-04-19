@@ -2,7 +2,7 @@ public class quicksort {
   static int pivot;
 
   public static void main(String[] args) {
-    int[] arr = { 3, 2, 1, 4, 5 };
+    int[] arr = {3, 2, 1, 4, 5};
     pivot = arr.length - 1;
     sort(arr, 0, pivot);
     for (int i : arr) {
@@ -26,6 +26,7 @@ public class quicksort {
     int temp = array[i + 1];
     array[i + 1] = array[high];
     array[high] = temp;
+    
 
     return (i + 1);
   }
