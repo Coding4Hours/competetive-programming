@@ -1,4 +1,3 @@
-
 /*
 ID: neealdo1
 PROB: dualpal
@@ -25,6 +24,9 @@ public class dualpal {
   private static String convertToBase(int num, int base) {
     if (num == 0)
       return "0";
+
+
+    
     StringBuilder digits = new StringBuilder();
     while (num > 0) {
       digits.append(num % base);
