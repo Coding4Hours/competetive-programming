@@ -1,11 +1,10 @@
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Collection;
 import java.util.Random;
 import java.util.Iterator;
 
-/**
- * LinkedList
- */
-public class LinkedList<E> implements Collection<E> {
+public class LinkedList<E> implements List<E> {
   Node<E> head;
   Node<E> tail;
   int size = 0;
@@ -29,36 +28,6 @@ public class LinkedList<E> implements Collection<E> {
     }
     return current;
   }
-
-  // Node<E> getNode(final int index) {
-  // if (index < 0 || index >= size) {
-  // throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-  // }
-  //
-  // // Try using cached node if it exists
-  // if (cachedNode != null) {
-  // if (index == cachedIndex)
-  // return cachedNode;
-  // if (Math.abs(index - cachedIndex) < (size >> 1)) {
-  // cachedNode = move(cachedNode, cachedIndex, index);
-  // cachedIndex = index;
-  // return cachedNode;
-  // }
-  // }
-  //
-  // // Fallback to head/tail traversal
-  // Node<E> current;
-  // if (index < (size >> 1)) {
-  // current = move(head, 0, index);
-  // } else {
-  // current = move(tail, size - 1, index);
-  // }
-  //
-  // // Update cache
-  // cachedNode = current;
-  // cachedIndex = index;
-  // return current;
-  // }
 
   Node<E> getNode(final int index) {
     if (index < 0 || index >= size) {
@@ -91,7 +60,6 @@ public class LinkedList<E> implements Collection<E> {
     return current;
   }
 
-  // Helper function to link a new node between prev and next nodes
   private void linkNode(Node<E> newNode, Node<E> prev, Node<E> next) {
     newNode.prev = prev;
     newNode.next = next;
@@ -105,9 +73,9 @@ public class LinkedList<E> implements Collection<E> {
     } else {
       tail = newNode;
     }
+
   }
 
-  // Helper function to unlink a node
   private void unlinkNode(Node<E> node) {
     Node<E> prevNode = node.prev;
     Node<E> nextNode = node.next;
@@ -135,11 +103,11 @@ public class LinkedList<E> implements Collection<E> {
 
   public boolean add(final E e) {
     final Node<E> newNode = new Node<>(e);
-    if (size == 0) {
+    if (size == 0)
       head = tail = newNode;
-    } else {
+    else
       linkNode(newNode, tail, null);
-    }
+
     size++;
     return true;
   }
@@ -165,19 +133,22 @@ public class LinkedList<E> implements Collection<E> {
 
   public boolean remove(final Object e) {
     int index = indexOf(e);
-    if (index == -1) {
+    if (index == -1)
       return false;
-    }
-    return remove(index);
+
+    remove(index);
+    return true;
   }
 
-  public boolean remove(final int index) {
+  public E remove(final int index) {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
     }
 
-    unlinkNode(getNode(index));
-    return true;
+    Node<E> thing = getNode(index);
+
+    unlinkNode(thing);
+    return thing.data;
   }
 
   @Override
@@ -193,6 +164,11 @@ public class LinkedList<E> implements Collection<E> {
   @Override
   public boolean contains(final Object o) {
     return indexOf(o) != -1;
+  }
+
+  @Override
+  public E set(int index, E e) {
+    return e;
   }
 
   @Override
@@ -224,6 +200,134 @@ public class LinkedList<E> implements Collection<E> {
     };
   }
 
+  @Override
+  public ListIterator<E> listIterator(final int index) {
+    return new ListIterator<E>() {
+      private Node<E> current = head;
+      private Node<E> lastReturned = null;
+
+      public boolean hasNext() {
+        return current != null;
+      }
+
+      @Override
+      public boolean hasPrevious() {
+        return current.prev != null;
+      }
+
+      @Override
+      public void add(E e) {
+
+      }
+
+      @Override
+      public void set(E e) {
+
+      }
+
+      @Override
+      public int previousIndex() {
+        return 1;
+      }
+
+      @Override
+      public int nextIndex() {
+        return 1;
+      }
+
+      public E next() {
+        if (current == null) {
+          throw new java.util.NoSuchElementException();
+        }
+        lastReturned = current;
+        current = current.next;
+        return lastReturned.data;
+      }
+
+      @Override
+      public E previous() {
+        if (current == null) {
+          throw new java.util.NoSuchElementException();
+        }
+        lastReturned = current;
+        current = current.prev;
+        return lastReturned.data;
+      }
+
+      public void remove() {
+        if (lastReturned == null) {
+          throw new IllegalStateException();
+        }
+        unlinkNode(lastReturned);
+        lastReturned = null;
+      }
+    };
+  }
+
+  @Override
+  public ListIterator<E> listIterator() {
+    return new ListIterator<E>() {
+      private Node<E> current = head;
+      private Node<E> lastReturned = null;
+
+      public boolean hasNext() {
+        return current != null;
+      }
+
+      @Override
+      public void add(E e) {
+
+      }
+
+      @Override
+      public void set(E e) {
+
+      }
+
+      @Override
+      public boolean hasPrevious() {
+        return current.prev != null;
+      }
+
+      @Override
+      public int nextIndex() {
+        return 1;
+      }
+
+      @Override
+      public int previousIndex() {
+        return 1;
+      }
+
+      public E next() {
+        if (current == null) {
+          throw new java.util.NoSuchElementException();
+        }
+        lastReturned = current;
+        current = current.next;
+        return lastReturned.data;
+      }
+
+      @Override
+      public E previous() {
+        if (current == null) {
+          throw new java.util.NoSuchElementException();
+        }
+        lastReturned = current;
+        current = current.prev;
+        return lastReturned.data;
+      }
+
+      public void remove() {
+        if (lastReturned == null) {
+          throw new IllegalStateException();
+        }
+        unlinkNode(lastReturned);
+        lastReturned = null;
+      }
+    };
+  }
+
   public Object[] toArray() {
     Object[] eray = new Object[size];
     Node<E> current = head;
@@ -241,8 +345,11 @@ public class LinkedList<E> implements Collection<E> {
 
   @Override
   public boolean containsAll(final Collection<?> c) {
-    // TODO Auto-generated method stub
-    return false;
+    for (Object e : c) {
+      if (indexOf(e) == -1)
+        return false;
+    }
+    return true;
   }
 
   @Override
@@ -278,7 +385,8 @@ public class LinkedList<E> implements Collection<E> {
 
   @Override
   public boolean removeAll(final Collection<?> c) {
-    // TODO Auto-generated method stub
+    for (Object e : c)
+      remove(e);
     return false;
   }
 
@@ -318,88 +426,22 @@ public class LinkedList<E> implements Collection<E> {
   }
 
   public int lastIndexOf(final Object e) {
-    // TODO thing
-    return 1;
+    int i = 0;
+    for (Node<E> current = tail; current != null; current = current.prev) {
+      if ((e == null && current.data == null) || (e != null && e.equals(current.data))) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
   }
 
-  public LinkedList<E> subList(final int index, final int insdex) {
-    // TODO thing
-    return new LinkedList<E>();
-  }
-
-  private static void benchmark(final String operation, final Runnable javaTask, final Runnable myTask) {
-    long start = System.nanoTime();
-    javaTask.run();
-    long end = System.nanoTime();
-    final double javaTime = (end - start) / 1e6;
-
-    start = System.nanoTime();
-    myTask.run();
-    end = System.nanoTime();
-    final double myTime = (end - start) / 1e6;
-
-    System.out.printf("%-15s %-20.3f %-20.3f%n", operation, javaTime, myTime);
-  }
-
-  public static void main(final String[] args) {
-    final int n = 100_000;
-    final Random rand = new Random();
-
-    final java.util.LinkedList<Integer> javaList = new java.util.LinkedList<>();
-    final LinkedList<Integer> myList = new LinkedList<>();
-
-    System.out.printf("%-15s %-20s %-20s%n", "Operation", "Java LinkedList", "MyLinkedList");
-    System.out.println("---------------------------------------------------------------");
-
-    benchmark("add(end)",
-        () -> {
-          for (int i = 0; i < n; i++)
-            javaList.add(i);
-        },
-        () -> {
-          for (int i = 0; i < n; i++)
-            myList.add(i);
-        });
-
-    benchmark("add(head)",
-        () -> {
-          for (int i = 0; i < n; i++)
-            javaList.add(0, i);
-        },
-        () -> {
-          for (int i = 0; i < n; i++)
-            myList.add(0, i);
-        });
-
-    benchmark("remove(head)",
-        () -> {
-          for (int i = 0; i < n; i++)
-            javaList.remove(0);
-        },
-        () -> {
-          for (int i = 0; i < n; i++)
-            myList.remove(0);
-        });
-
-    benchmark("indexOf(i)",
-        () -> javaList.indexOf(rand.nextInt(n)),
-        () -> myList.indexOf(rand.nextInt(n)));
-
-    benchmark("toArray",
-        () -> javaList.toArray(),
-        () -> myList.toArray());
-
-    benchmark("get(i)",
-        () -> {
-          for (int i = 0; i < n; i++) {
-            javaList.get(rand.nextInt(n));
-          }
-        },
-        () -> {
-          for (int i = 0; i < n; i++) {
-            myList.get(rand.nextInt(n));
-          }
-        });
+  public LinkedList<E> subList(final int start, final int end) {
+    LinkedList<E> sublist = new LinkedList<E>();
+    for (int i = start; i < end; i++) {
+      sublist.add(get(i));
+    }
+    return sublist;
   }
 }
 
