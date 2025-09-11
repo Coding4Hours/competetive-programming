@@ -1,8 +1,7 @@
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Collection;
-import java.util.Random;
-import java.util.Iterator;
 
 public class LinkedList<E> implements List<E> {
 	Node<E> head;

@@ -6,150 +6,178 @@ import java.util.ListIterator;
 import java.util.Spliterator;
 import java.util.function.UnaryOperator;
 
-public class MyArrayList<E> implements List<E> {
+public class ArrayList<E> implements List<E> {
 
-  private Object[] elementData;
-  private int size;
+	private Object[] elementData;
+	private double size;
+	private int capacity;
 
-  public MyArrayList() {
-    /* ... */ }
+	public ArrayList() {
+		elementData = new Object[10];
+	}
 
-  public MyArrayList(int initialCapacity) {
-    /* ... */ }
+	public ArrayList(int initialCapacity) {
+		/* ... */ }
 
-  public MyArrayList(Collection<? extends E> c) {
-    /* ... */ }
+	public ArrayList(Collection<? extends E> c) {
+		/* ... */ }
 
-  @Override
-  public boolean add(E e) {
-    return true;
-  }
+	public static void main(String[] args) {
+		ArrayList arr = new ArrayList();
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+		arr.add("a");
+	}
 
-  @Override
-  public void add(int index, E element) {
-  }
+	@Override
+	public boolean add(E e) {
+		elementData[size + 1] = e;
+		if (size == capacity) {
+			Object[] dest = new Object[size * 1.5];
 
-  @Override
-  public boolean addAll(Collection<? extends E> c) {
-    return false;
-  }
+			System.arraycopy(elementData, 0, dest, 0, elementData.length);
+			elementData = dest;
+		}
+		return true;
+	}
 
-  @Override
-  public boolean addAll(int index, Collection<? extends E> c) {
-    return false;
-  }
+	@Override
+	public void add(int index, E element) {
+	}
 
-  @Override
-  public void clear() {
-  }
+	@Override
+	public boolean addAll(Collection<? extends E> c) {
+		return false;
+	}
 
-  @Override
-  public boolean contains(Object o) {
-    return false;
-  }
+	@Override
+	public boolean addAll(int index, Collection<? extends E> c) {
+		return false;
+	}
 
-  @Override
-  public boolean containsAll(Collection<?> c) {
-    return false;
-  }
+	@Override
+	public void clear() {
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    return false;
-  }
+	@Override
+	public boolean contains(Object o) {
+		return false;
+	}
 
-  @Override
-  public E get(int index) {
-    return null;
-  }
+	@Override
+	public boolean containsAll(Collection<?> c) {
+		return false;
+	}
 
-  @Override
-  public int hashCode() {
-    return 0;
-  }
+	@Override
+	public boolean equals(Object o) {
+		return false;
+	}
 
-  @Override
-  public int indexOf(Object o) {
-    return -1;
-  }
+	@Override
+	public E get(int index) {
+		return null;
+	}
 
-  @Override
-  public boolean isEmpty() {
-    return true;
-  }
+	@Override
+	public int hashCode() {
+		return 0;
+	}
 
-  @Override
-  public Iterator<E> iterator() {
-    return null;
-  }
+	@Override
+	public int indexOf(Object o) {
+		return -1;
+	}
 
-  @Override
-  public int lastIndexOf(Object o) {
-    return -1;
-  }
+	@Override
+	public boolean isEmpty() {
+		return true;
+	}
 
-  @Override
-  public ListIterator<E> listIterator() {
-    return null;
-  }
+	@Override
+	public Iterator<E> iterator() {
+		return null;
+	}
 
-  @Override
-  public ListIterator<E> listIterator(int index) {
-    return null;
-  }
+	@Override
+	public int lastIndexOf(Object o) {
+		return -1;
+	}
 
-  @Override
-  public E remove(int index) {
-    return null;
-  }
+	@Override
+	public ListIterator<E> listIterator() {
+		return null;
+	}
 
-  @Override
-  public boolean remove(Object o) {
-    return false;
-  }
+	@Override
+	public ListIterator<E> listIterator(int index) {
+		return null;
+	}
 
-  @Override
-  public boolean removeAll(Collection<?> c) {
-    return false;
-  }
+	@Override
+	public E remove(int index) {
+		return null;
+	}
 
-  @Override
-  public void replaceAll(UnaryOperator<E> operator) {
-  }
+	@Override
+	public boolean remove(Object o) {
+		return false;
+	}
 
-  @Override
-  public boolean retainAll(Collection<?> c) {
-  }
+	@Override
+	public boolean removeAll(Collection<?> c) {
+		return false;
+	}
 
-  @Override
-  public E set(int index, E element) {
-  }
+	@Override
+	public void replaceAll(UnaryOperator<E> operator) {
+	}
 
-  @Override
-  public int size() {
-    return 0;
-  }
+	@Override
+	public boolean retainAll(Collection<?> c) {
+	}
 
-  @Override
-  public void sort(Comparator<? super E> c) {
-  }
+	@Override
+	public E set(int index, E element) {
+	}
 
-  @Override
-  public Spliterator<E> spliterator() {
-    return null;
-  }
+	@Override
+	public int size() {
+		return 0;
+	}
 
-  @Override
-  public List<E> subList(int fromIndex, int toIndex) {
-  }
+	@Override
+	public void sort(Comparator<? super E> c) {
+	}
 
-  @Override
-  public Object[] toArray() {
-    return new Object[0];
-  }
+	@Override
+	public Spliterator<E> spliterator() {
+		return null;
+	}
 
-  @Override
-  public <T> T[] toArray(T[] a) {
-    return (T[]) new Object[0];
-  }
+	@Override
+	public List<E> subList(int fromIndex, int toIndex) {
+	}
+
+	@Override
+	public Object[] toArray() {
+		return new Object[0];
+	}
+
+	@Override
+	public <T> T[] toArray(T[] a) {
+		return (T[]) new Object[0];
+	}
 }
